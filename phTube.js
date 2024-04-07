@@ -9,7 +9,7 @@ const loadData = (id) => {
 };
 
 
-
+loadData(1000);
 
 
 const showdata = (object) => {
@@ -23,7 +23,7 @@ const showdata = (object) => {
 
     cardHolder.innerHTML = '';
 
-    
+
     const NoDataContainer = document.getElementById('NoData');
 
 
@@ -53,8 +53,11 @@ const showdata = (object) => {
     
                         <div class=" block gap-2">
                         <h1 class="font-bold text-xl "> ${data.title}</h1>
-                        <h2 class="text-sm flex gap-2">${data.authors[0].profile_name}  <img class="h-5 w5" src="images/bluetick.png"
-                                alt="bluetick"></h2>
+                        <h2 class="text-sm flex gap-2">${data.authors[0].profile_name}  
+                        
+                      ${data?.authors[0]?.verified ?  ` <img class="h-5 w5" src="images/bluetick.png" alt="bluetick"></img>`  : ''}  
+                        
+                        </h2>
                         <p> <span >${data.others.views}</span>Views</p>
                 
                     </div>
