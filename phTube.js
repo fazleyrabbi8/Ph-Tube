@@ -1,10 +1,17 @@
+let allvideos = [];
 
 //  call the api for  kinds of cards
 const loadData = (id) => {
 
     fetch(`https://openapi.programming-hero.com/api/videos/category/${id}`)
         .then(res => res.json())
-        .then(data => showdata(data));
+        .then(data => 
+            {showdata(data)
+
+            allvideos =data ;
+
+            });
+
 
 };
 
@@ -12,11 +19,13 @@ const loadData = (id) => {
 loadData(1000);
 
 
+
 const showdata = (object) => {
 
+
+    
     const dataArray = object.data;
 
-    console.log(dataArray)
 
     const cardHolder = document.getElementById('card-container');
 
@@ -30,13 +39,6 @@ const showdata = (object) => {
     NoDataContainer.innerHTML = '';
 
     if (dataArray.length > 0) {
-
-
-
-
-
-
-
 
         dataArray.forEach(data => {
             const card = document.createElement('div');
@@ -55,7 +57,7 @@ const showdata = (object) => {
                         <h1 class="font-bold text-xl "> ${data.title}</h1>
                         <h2 class="text-sm flex gap-2">${data.authors[0].profile_name}  
                         
-                      ${data?.authors[0]?.verified ?  ` <img class="h-5 w5" src="images/bluetick.png" alt="bluetick"></img>`  : ''}  
+                      ${data?.authors[0]?.verified ? ` <img class="h-5 w5" src="images/bluetick.png" alt="bluetick"></img>` : ''}  
                         
                         </h2>
                         <p> <span >${data.others.views}</span>Views</p>
@@ -97,9 +99,6 @@ const showdata = (object) => {
 
 
     }
-
-
-
 
 
 
@@ -157,3 +156,17 @@ const sendCategory = id => {
 }
 
 navbarbuttons();
+
+//  sorting by views 
+
+
+const sorting = () => {
+    allvideos.data.sort((Element1, Element2) => {
+
+        const a = parseInt(Element1?.others?.views);
+        const b = parseInt(Element2?.others?.views);
+        return b - a;
+    }
+   )
+ showdata(allvideos) ;
+}
